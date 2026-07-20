@@ -5,15 +5,15 @@ export const getMe = async () => {
 
   const accessToken = cookieStore.get("accessToken")?.value;
 
-  console.log(accessToken)
+  console.log(accessToken);
 
   if (!accessToken) {
     // throw new Error("User Not Logged In!");
 
     return {
-        success: false,
-        message: "User Not logged in!"
-    }
+      success: false,
+      message: "User Not logged in!",
+    };
   }
 
   const res = await fetch(`${process.env.BACKEND_API_URL}/api/users/me`, {
@@ -24,6 +24,11 @@ export const getMe = async () => {
       // Authorization: `Bearer ${accessToken}`
 
       Cookie: `accessToken=${accessToken}`,
+    },
+    cache: "force-cache",
+    next: {
+      revalidate: 60 * 60 * 24, // 1day
+      tags: ["my-profile"],
     },
   });
 

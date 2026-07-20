@@ -2,7 +2,7 @@ import { Navbar } from '@/components/shared/navbar'
 import { getMe } from '@/service/getMe'
 import React from 'react'
 
-const DashboardLayout = async (
+const PublicGroupLayout = async (
     {
         children
     } : {
@@ -14,10 +14,10 @@ const DashboardLayout = async (
 
   return ( 
     <>
-     <Navbar user={user}></Navbar>
+    <Navbar user={user}></Navbar>
         {children}
     </>
   )
 }
 
-export default DashboardLayout
+export default PublicGroupLayout

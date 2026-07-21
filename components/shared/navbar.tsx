@@ -12,9 +12,8 @@ import {
 // import { Button } from "@/components/ui/button";
 import { LogOut, Settings, User } from "lucide-react";
 import { logout } from "@/service/logout";
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
 // Navigation items configuration
@@ -62,7 +61,7 @@ type NavbarProps = {
 
 export function Navbar({ user }: NavbarProps) {
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleUserMenuAction = async (action: string) => {
     if (action === "logout") {

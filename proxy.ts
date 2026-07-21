@@ -35,7 +35,9 @@ export async function proxy(request: NextRequest) {
     } else if (userRole === "AUTHOR") {
       return NextResponse.redirect(new URL("/author-dashboard", request.url));
     } else {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/", request.url
+        
+      ));
     }
   }
 

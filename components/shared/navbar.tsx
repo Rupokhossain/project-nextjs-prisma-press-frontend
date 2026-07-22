@@ -60,7 +60,6 @@ type NavbarProps = {
 };
 
 export function Navbar({ user }: NavbarProps) {
-
   // const router = useRouter();
 
   const handleUserMenuAction = async (action: string) => {
@@ -69,7 +68,6 @@ export function Navbar({ user }: NavbarProps) {
       toast.success("User Logged Out Successfuly");
     }
   };
-
 
   return (
     <nav className="border-b border-border bg-background">

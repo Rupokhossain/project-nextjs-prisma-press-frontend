@@ -3,7 +3,14 @@ import { NewsSearchBar } from "../_components/news/NewsSearchBar";
 import { NewsSkeleton } from "../_components/news/NewsSkeleton";
 import { PremiumNewsList } from "../_components/news/PremiumNewsList";
 
-const PremiumPage = async () => {
+const PremiumPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
+
+  const search = await searchParams;
+
   return (
     <div className="mx-auto max-w-7xl space-y-6 px-4 py-10 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -18,7 +25,7 @@ const PremiumPage = async () => {
       </div>
 
       <Suspense fallback={<NewsSkeleton />}>
-        <PremiumNewsList />
+        <PremiumNewsList searchParams={searchParams} />
       </Suspense>
     </div>
   );

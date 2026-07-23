@@ -4,6 +4,7 @@ import { JwtPayload } from "jsonwebtoken";
 import { jwtUtils } from "./app/utils/jwt";
 import { cookies } from "next/headers";
 import { getRefreshToken } from "./service/refreshToken";
+import { getSubscriptionStatus } from "./app/(publicGroup)/_actions/getSubscriptionStatus";
 
 const AUTH_ROUTES = ["/login", "/register"];
 const PUBLIC_ROUTES = ["/", "/news"];
@@ -47,7 +48,10 @@ export async function proxy(request: NextRequest) {
         sameSite: "lax",
       });
 
-      decodedAccessToken = jwtUtils.verifiedToken(accessToken!, process.env.JWT_ACCESS_SECRET as string)
+      decodedAccessToken = jwtUtils.verifiedToken(
+        accessToken!,
+        process.env.JWT_ACCESS_SECRET as string,
+      );
     }
   }
 
@@ -103,6 +107,32 @@ export async function proxy(request: NextRequest) {
   ) {
     return NextResponse.redirect(new URL("/not-found", request.url));
   }
+
+
+
+  if (pathname === "/premium") {
+    const subscriptionStatus = await getSubscriptionStatus();
+
+    const isActive = Boolean(
+      subscriptionStatus?.success && subscriptionStatus.data?.isSubscribed,
+    );
+
+    if (!isActive) {
+      return NextResponse.redirect(new URL("/payment", request.url));
+    }
+  }
+
+  //   if (pathname === "/payment") {
+  //   const subscriptionStatus = await getSubscriptionStatus();
+
+  //   const isActive = Boolean(
+  //     subscriptionStatus?.success && subscriptionStatus.data?.isSubscribed,
+  //   );
+
+  //   if (isActive) {
+  //     return NextResponse.redirect(new URL("/premium", request.url));
+  //   }
+  // }
 
   //   return NextResponse.redirect(new URL("/", request.url));
 
